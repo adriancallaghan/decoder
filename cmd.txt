@@ -1,0 +1,64 @@
+php decodeCsv.php ~/Desktop/ukForms\ 2013.csv "March 2013 Web Enquiry Data - UK - Filtered.csv" -dupl=off --prof=profanity.txt -positives="March 2013 Web Enquiry Data - UK - profanity.csv"
+php decodeCsv.php ~/Desktop/ukForms\ 2013.csv "March 2013 Web Enquiry Data - UK.csv"
+
+-- UK --
+set @start='March 01 2013 12:00AM';
+
+SELECT * 
+FROM formSubmissions f 
+WHERE 
+formName IN (
+'frmBl-memberEnquiry',
+'corporate_JNPL',
+'corporate_membership',
+'frmArrangeAVisit',
+'frmArrangeAVisitfrmBl-memberEnquiry',
+'frmArrangeAVisitfrmEx-memberEnquiry',
+'frmArrangeAVisitMailonsunday',
+'frmArrangeAVisitMembership Enquiry',
+'frmAtpcomp',
+'frmBl-memberEnquiry',
+'frmBookTour_home',
+'frmCorporatePromotions',
+'frmEmployeeOffer',
+'frmEx-memberEnquiry',
+'frmFacebookEnquiry',
+'frmMailonsunday',
+'frmMember12DayGuestPass_uk',
+'frmMember12DayOctober2011_uk',
+'frmMember12DaysOfFitness_uk',
+'frmMember14Day2013_uk',
+'frmMemberAugustDayGuestPass_uk',
+'frmMemberFamily2011_uk',
+'frmMemberFamilyJuly2011_uk',
+'frmMemberFamilyNovember2010_uk',
+'frmMemberReferAFriend',
+'frmMemberReferral',
+'frmMemberReferralWeekendRoyalWedding',
+'frmMembershipEnquiry',
+'frmOpenWeekendEnquiry',
+'frmPromoAddChild',
+'frmPromoReferAFriend',
+'frmRacquetsMembershipEnquiry',
+'frmRadioTimes',
+'frmReferAFriend',
+'frmSalesFunnel',
+'frmSalesFunnelTour',
+'frmSupplierOffer',
+'frmWorkfitEnquiry',
+'Membership Enquiry',
+'OpenWeekendEnquiry',
+'seven_day_no_tour',
+'seven_day_tour',
+'Team Stonegate',
+'wimbledonWeekend',
+'win6home') 
+AND 
+submissionTime > UNIX_TIMESTAMP(STR_TO_DATE(@start, '%M %d %Y %h:%i%p')) AND 
+submissionTime < UNIX_TIMESTAMP(DATE_ADD(STR_TO_DATE(@start, '%M %d %Y %h:%i%p'), INTERVAL 1 MONTH)) 
+LIMIT 0,100000;
+
+
+
+
+
